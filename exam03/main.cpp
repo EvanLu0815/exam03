@@ -64,7 +64,7 @@ Thread t;
 
 Thread t2;
 
-float MyResult;
+float MyResult[3];
 
 EventQueue queue2(32 * EVENTS_EVENT_SIZE);
 
@@ -183,7 +183,6 @@ int main(){
 
   while (1) {
       queue2.call(&getAcc);
-      c++;
       wait(0.1);
   }
 
@@ -193,7 +192,10 @@ void MyPrint(Arguments *in, Reply *out)
 {
     // xbee.printf("%d\r\n", c);
     //pc.printf("In MyPrint\r\n");
-    xbee.printf("%1.4f\r\n", MyResult);
+    for (int i = 0; i <= c; i++) {
+        xbee.printf("%1.4f\r\n", MyResult[i]);
+        // wait(0.1);
+    }
     // xbee.printf("%1.4f\r\n", MyResult[1]);
     // xbee.printf("%1.4f\r\n", MyResult[2]);
     // c = 0;
@@ -329,11 +331,14 @@ void getAcc(void) {
 
    t[2] = ((float)acc16) / 4096.0f;
 
-   MyResult = sqrt(t[0] * t[0] + t[1] * t[1]) * 0.1;
+   MyResult[c] = sqrt(t[0] * t[0] + t[1] * t[1]) * 0.1;
    // MyResult[1] = t[1];
    // MyResult[2] = t[2];
 
-    //c++;
+   if (c == 2)
+        c = 0;
+    else
+        c++;
    /*pc.printf("FXOS8700Q ACC: X=%1.4f(%x%x) Y=%1.4f(%x%x) Z=%1.4f(%x%x)",\
 
          t[0], res[0], res[1],\

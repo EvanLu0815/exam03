@@ -163,6 +163,15 @@ while (1):
     print(char.decode())
 
     tmp = char 
+
+    mqttc.publish(topic, tmp)
+    # time.sleep(0.1)
+
+    char = s.readline()
+
+    print(char.decode())
+
+    tmp = char 
     # tmp = "1"
     # tmp = str(char)
 
@@ -179,7 +188,7 @@ while (1):
 
     # i += 1
     mqttc.publish(topic, tmp)
-    time.sleep(0.1)
+    time.sleep(0.2)
 
 #for i in range (20):
  #   if ((x[i] > 0.707107)| (y[i] > 0.707107)| (x[i] < -0.707107)| (y[i] < -0.707107)):
