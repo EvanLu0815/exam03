@@ -6,6 +6,8 @@
 
 #include "fsl_gpio.h"
 
+#include "math.h"
+
 #define UINT14_MAX        16383
 
 // FXOS8700CQ I2C address
@@ -327,7 +329,7 @@ void getAcc(void) {
 
    t[2] = ((float)acc16) / 4096.0f;
 
-   MyResult = (t[0] + t[1]) * 0.1;
+   MyResult = sqrt(t[0] * t[0] + t[1] * t[1]) * 0.1;
    // MyResult[1] = t[1];
    // MyResult[2] = t[2];
 
